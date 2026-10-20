@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070b14">
+  <title>ConnectLive — Private live sessions</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/"><span class="brand-icon">C</span> Connect<span>Live</span></a>
+    <span class="secure-label">● Consent-first live connection</span>
+  </header>
+
+  <main class="shell">
+    <section id="homeView" class="hero card">
+      <div class="eyebrow">PRIVATE · LIVE · WITH PERMISSION</div>
+      <h1>Connect in real time.<br><span>On your terms.</span></h1>
+      <p class="intro">Create a private invitation link for a live audio/video session. The invited person must choose to join and grant camera or microphone access.</p>
+      <div class="mode-grid">
+        <button class="mode-card selected" data-mode="two-way" type="button">
+          <span class="mode-icon">↔</span><strong>Two-way call</strong>
+          <small>Both people can share video and audio.</small>
+        </button>
+        <button class="mode-card" data-mode="one-way" type="button">
+          <span class="mode-icon">◉</span><strong>One-way viewing</strong>
+          <small>The invited person shares; host watches and listens.</small>
+        </button>
+      </div>
+      <button id="createBtn" class="primary wide">＋ Create a session</button>
+      <p class="fineprint">Your browser will show permission prompts. No camera or microphone is activated secretly.</p>
+    </section>
+
+    <section id="hostView" class="card hidden">
+      <div class="eyebrow">HOST DASHBOARD</div>
+      <h1>Your session is ready</h1>
+      <p class="muted">Share this private invitation with the person you want to connect with.</p>
+      <label class="field-label" for="inviteUrl">Invitation link</label>
+      <div class="copy-row"><input id="inviteUrl" readonly><button id="copyBtn" class="secondary">Copy</button></div>
+      <div id="copyStatus" class="status-text" aria-live="polite"></div>
+      <div class="session-status"><span class="pulse"></span><span id="hostStatus">Waiting for the invited person to join…</span></div>
+      <div class="video-grid">
+        <div class="video-box"><video id="remoteVideo" autoplay playsinline></video><span class="video-label">Invited person</span></div>
+        <div class="video-box" id="localBox"><video id="localVideo" autoplay muted playsinline></video><span class="video-label">You</span></div>
+      </div>
+      <div class="controls">
+        <button id="hostMic" class="secondary hidden">Mute microphone</button>
+        <button id="hostCam" class="secondary hidden">Turn camera off</button>
+        <button id="endBtn" class="danger">End session</button>
+      </div>
+      <p class="fineprint">Keep this page open during the call. Treat the invitation link like a private key.</p>
+    </section>
+
+    <section id="guestView" class="card hidden">
+      <div class="eyebrow">PRIVATE INVITATION</div>
+      <h1>You've been invited to connect</h1>
+      <p id="guestExplanation" class="intro">Before joining, review what you will share.</p>
+      <div class="consent-box">
+        <strong>Before you join</strong>
+        <ul>
+          <li>Your camera and microphone will only be accessed after you press Join and approve your browser's permission prompt.</li>
+          <li>The host can see/hear the media you choose to share while connected.</li>
+          <li>You can mute, turn your camera off, or leave at any time.</li>
+        </ul>
+      </div>
+      <label class="check-row"><input type="checkbox" id="consentCheck"> I understand and want to join this live session.</label>
+      <button id="joinBtn" class="primary wide" disabled>Join and choose device permissions</button>
+      <p id="guestStatus" class="status-text" aria-live="polite"></p>
+      <div class="video-grid hidden" id="guestVideos">
+        <div class="video-box"><video id="guestRemote" autoplay playsinline></video><span class="video-label">Host</span></div>
+        <div class="video-box"><video id="guestLocal" autoplay muted playsinline></video><span class="video-label">You</span></div>
+      </div>
+      <div class="controls hidden" id="guestControls">
+        <button id="guestMic" class="secondary">Mute microphone</button>
+        <button id="guestCam" class="secondary">Turn camera off</button>
+        <button id="leaveBtn" class="danger">Leave session</button>
+      </div>
+    </section>
+
+    <section id="endedView" class="card hidden">
+      <div class="eyebrow">SESSION CLOSED</div>
+      <h1>This session has ended</h1>
+      <p class="muted">The live connection is closed. You can return to the homepage to create a new session.</p>
+      <a class="primary button-link" href="/">Back to ConnectLive</a>
+    </section>
+
+    <section id="errorView" class="card hidden">
+      <div class="eyebrow">INVITATION ISSUE</div><h1>Unable to open session</h1>
+      <p id="errorText" class="muted">This link may be invalid or the session may have ended.</p>
+      <a class="primary button-link" href="/">Create a new session</a>
+    </section>
+  </main>
+  <footer>ConnectLive · Private sessions, with permission.</footer>
+  <script src="/app.js"></script>
+</body>
+</html>
